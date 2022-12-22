@@ -15,6 +15,8 @@ const puppeteer = require('puppeteer');
 
     await page.click('[class="mL3xi"]');
 
+    console.log(window);
+
     
 
     //await browser.close();
