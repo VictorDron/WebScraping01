@@ -15,10 +15,21 @@ const puppeteer = require('puppeteer');
 
     await page.click('[class="mL3xi"]');
 
-    console.log(window);
+      const leads = await page.evaluate (()=>{
+
+              const NodeList = document.querySelectorAll('[class="m6QErb tLjsW"]');
+
+              const ListArray = [...NodeList];
+
+              //const list = ListArray.map( ({text}) => ({
+                  
+              //}));
+
+            console.log(ListArray);
+          return leads;
+      });
 
     
-
     //await browser.close();
   })();
 
