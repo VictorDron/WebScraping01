@@ -1,33 +1,34 @@
 const puppeteer = require('puppeteer');
 
+
 (async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
+
+  const browser = await puppeteer. launch({ headless: false});
+  const page = await browser.newPage();
+  await page.goto('https://www.google.com.br/maps/place/Campo+Grande,+Rio+de+Janeiro+-+RJ/@-22.8877585,-43.5487871,12z/data=!3m1!4b1!4m5!3m4!1s0x9be17999363715:0x46c3f27867ad9332!8m2!3d-22.9076515!4d-43.5659121?hl=pt-BR&authuser=0');
+   
+  await page.click('[data-value="Próximo"]');
+
+  await page.type('[class="searchboxinput xiQnY"]', 'escolas particulares');
+
+  await page.click('[class="mL3xi"]');
+
   
-    await page.goto('https://developers.google.com/web/');
   
-    // Type into search box.
-    await page.type('.devsite-search-field', 'Headless Chrome');
+  const imgArray = await page.evaluate ( () => {
   
-    // Wait for suggest overlay to appear and click "show all results".
-    const allResultsSelector = '.devsite-suggest-all-results';
-    await page.waitForSelector(allResultsSelector);
-    await page.click(allResultsSelector);
+  const nodeList = document.querySelectorAll('[class="Nv2PK tH5CWc THOPZb"]');
   
-    // Wait for the results page to load and display the results.
-    const resultsSelector = '.gsc-results .gs-title';
-    await page.waitForSelector(resultsSelector);
+  const imgArray = [...nodeList]
+  // transformar os nodes (elementos html) em objetos JS
+  const imgList = imgArray.map( ({src}) => ({
   
-    // Extract the results from the page.
-    const links = await page.evaluate(resultsSelector => {
-      return [...document.querySelectorAll(resultsSelector)].map(anchor => {
-        const title = anchor.textContent.split('|')[0].trim();
-        return `${title} - ${anchor.href}`;
-      });
-    }, resultsSelector);
-  
-    // Print all the files.
-    console.log(links.join('\n'));
-  
-    await browser.close();
-  })();
+  }));
+
+  console.log(imgArray.length);
+  // colocar para fora da função
+  return imgArray
+  });
+
+  console.log(imgArray.length);
+})();
