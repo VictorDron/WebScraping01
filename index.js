@@ -14,16 +14,16 @@ const Mapa = "https://www.google.com.br/maps/search/Escolas/@-22.9042277,-43.599
   
       const leads = await page.evaluate (()=>{
 
-              const NodeList = document.querySelectorAll('[class="y7PRA"]');
+              const NodeList = document.querySelectorAll('[class="Lui3Od T7Wufd"]');
 
               const ListArray = [...NodeList];
 
-              const list = ListArray.map( ({src}) => ({
-                  src
-              }));
+              const list = ListArray.map( ({}) => {
+                src
+              });
 
             console.log(list);
-          
+             
       });
 
     
