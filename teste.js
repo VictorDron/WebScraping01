@@ -14,7 +14,7 @@ async function autoScroll(page){
       var totalHeight = 0;
       var distance = 300;
       var timer = setInterval(()=>{
-           const element = document.querySelectorAll('[class:"section-scrollbox"]');
+           const element = document.querySelectorAll('[class="m6QErb DxyBCb kA9KIf dS8AEf ecceSd QjC7t"]');
            var scrollHeight = element.scrollHeight;
            element.scrollBy(0,distance);
            totalHeight += distance;
