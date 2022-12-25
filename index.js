@@ -7,7 +7,10 @@ const Mapa = "https://www.google.com.br/maps/search/Escolas/@-22.9042277,-43.599
 
 (async () => {
     
-    const browser = await puppeteer.launch({headless: false});
+  const browser = await puppeteer.launch({
+    executablePath: '/usr/bin/chromium-browser',
+    headless: false
+  });
     const page = await browser.newPage();
   
     await page.goto(Mapa);
