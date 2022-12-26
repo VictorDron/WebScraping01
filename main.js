@@ -4,6 +4,8 @@ const url = ("https://www.mercadolivre.com.br/");
 
 const searchfor = "macbook";
 
+const c = 1;
+
 (async () => {
 const browser = await pup.launch({headless: false});
 
@@ -25,6 +27,22 @@ await Promise.all([
 
 
 const links = await page.$$eval('.ui-search-result__image > a', el => el.map(link => link.href));
+
+for (const link of links) {
+    //console.log('Página');
+
+    await page.waitForSelector('.ui-pdp-title');
+
+    await page.goto(link);
+    
+    const title = await page.$eval('.ui-pdp-title', element => element.innerText);
+
+    const obj = {title}
+
+    console.log(obj);
+
+   
+}
 
 console.log(links);
 
