@@ -1,33 +1,79 @@
-const puppeteer = require('puppeteer');
+const pup = require("puppeteer");
+
+const url = ("https://www.google.com.br/maps");
+
+const searchfor = "Campo Grande rj";
+
+const searchBusiness = "Escolas";
+
+let c = 1;
 
 (async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+const browser = await pup.launch({headless: false});
 
-  await page.goto('https://developers.google.com/web/');
+const page = await browser.newPage();
+console.log("Iniciei!");
 
-  // Type into search box.
-  await page.type('.devsite-search-field', 'Headless Chrome');
+await page.goto(url);
+console.log("Fui para a url!");
 
-  // Wait for suggest overlay to appear and click "show all results".
-  const allResultsSelector = '.devsite-suggest-all-results';
-  await page.waitForSelector(allResultsSelector);
-  await page.click(allResultsSelector);
+await page.waitForSelector("#searchboxinput");
 
-  // Wait for the results page to load and display the results.
-  const resultsSelector = '.gsc-results .gs-title';
-  await page.waitForSelector(resultsSelector);
+await page.type("#searchboxinput",searchfor);
 
-  // Extract the results from the page.
-  const links = await page.evaluate(resultsSelector => {
-    return [...document.querySelectorAll(resultsSelector)].map(anchor => {
-      const title = anchor.textContent.split('|')[0].trim();
-      return `${title} - ${anchor.href}`;
-    });
-  }, resultsSelector);
+await page.click('#searchbox-searchbutton');
 
-  // Print all the files.
-  console.log(links.join('\n'));
+await page.waitForNavigation(".g88MCb S9kvJb");
 
-  await browser.close();
+await page.click('[data-value="Próximo"]');
+
+await page.type("#searchboxinput",searchBusiness);
+
+await page.waitForSelector(".mL3xi");
+
+await page.click(".mL3xi");
+
+await page.setViewport({
+    width:1300,
+    height: 900
+ });
+
+
+// await Promise.all([
+
+//     page.waitForNavigation(),
+//     page.click('.g88MCb S9kvJb')
+
+//  ]);
+
+
+ const links = await page.waitForNavigation('.hfpxzc > a', el => el.map(link => link.href));
+//const links = await page.$$eval
+
+//const links = await page.$$eval('.muMOJe', el => el.map(span => span.innerText));
+
+console.log(links);
+
+//   //await page.goto(link);
+
+//  }
+
+//     //await page.waitForSelector('.ui-pdp-title');
+
+//     await page.goto(link);
+    
+//     const title = await page.$eval('.ui-pdp-title', element => element.innerText);
+//     const price = await page.$eval('.andes-money-amount__fraction', element => element.innerText);
+
+//     const obj = {title,price}
+
+//     console.log(obj);
+
+//    c++
+// }
+
+// console.log(links);
+
+
+
 })();

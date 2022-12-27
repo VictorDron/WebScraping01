@@ -2,7 +2,7 @@ const pup = require("puppeteer");
 
 const url = ("https://www.mercadolivre.com.br/");
 
-const searchfor = "iphone 14";
+const searchfor = "barco";
 
 let c = 1;
 
@@ -32,6 +32,7 @@ await Promise.all([
 
 
 const links = await page.$$eval('.ui-search-result__image > a', el => el.map(link => link.href));
+console.log(links);
 
 for (const link of links) {
 
