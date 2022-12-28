@@ -47,7 +47,7 @@ await page.setViewport({
 //  ]);
 
 
- const links = await page.waitForNavigation('.hfpxzc > a', el => el.map(link => link.href));
+ const links = await document.querySelectorAll('[jstcache="1033"] > .a', el => el.map(link => link.href));
 //const links = await page.$$eval
 
 //const links = await page.$$eval('.muMOJe', el => el.map(span => span.innerText));
