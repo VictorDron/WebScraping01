@@ -2,9 +2,9 @@ const pup = require("puppeteer");
 
 const url = ("https://www.google.com.br/maps");
 
-const searchfor = "Campo Grande rj";
+const searchfor = "Freguesia rj";
 
-const searchBusiness = "Escolas";
+const searchBusiness = "Escola de musica";
 
 let c = 1;
 
@@ -29,7 +29,7 @@ await page.click('[data-value="Próximo"]');
 
 await page.type("#searchboxinput",searchBusiness);
 
-await page.waitForSelector(".mL3xi");
+await page.waitForNavigation(".mL3xi");
 
 await page.click(".mL3xi");
 
@@ -46,33 +46,26 @@ await page.setViewport({
 
 //  ]);
 
-
- const links = await document.querySelectorAll('[jstcache="1033"] > .a', el => el.map(link => link.href));
-//const links = await page.$$eval
-
-//const links = await page.$$eval('.muMOJe', el => el.map(span => span.innerText));
+await page.waitForSelector('[class="hfpxzc"]');
+const links = await page.$$eval('[class="hfpxzc"] ', el => el.map(link => link.href));
 
 console.log(links);
 
-//   //await page.goto(link);
+for (const link of links) {
 
-//  }
+    console.log('Página',c);
 
-//     //await page.waitForSelector('.ui-pdp-title');
+    //await page.waitForSelector('.ui-pdp-title');
 
-//     await page.goto(link);
+    await page.goto(link);
     
-//     const title = await page.$eval('.ui-pdp-title', element => element.innerText);
-//     const price = await page.$eval('.andes-money-amount__fraction', element => element.innerText);
+    // const title = await page.$eval('.ui-pdp-title', element => element.innerText);
+    // const price = await page.$eval('.andes-money-amount__fraction', element => element.innerText);
 
-//     const obj = {title,price}
+    // const obj = {title,price}
 
-//     console.log(obj);
-
-//    c++
-// }
-
-// console.log(links);
+   c++
+}
 
 
 
