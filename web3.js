@@ -4,12 +4,12 @@ const url = ("https://www.google.com.br/maps");
 
 const searchfor = "Freguesia rj";
 
-const searchBusiness = "Escola de musica";
+const searchBusiness = "Bares";
 
 let c = 1;
 
 (async () => {
-const browser = await pup.launch({headless: false});
+const browser = await pup.launch({headless: true});
 
 const page = await browser.newPage();
 console.log("Iniciei!");
@@ -34,8 +34,8 @@ await page.waitForNavigation(".mL3xi");
 await page.click(".mL3xi");
 
 await page.setViewport({
-    width:1300,
-    height: 900
+    width:1920,
+    height: 1300
  });
 
 
@@ -49,7 +49,7 @@ await page.setViewport({
 await page.waitForSelector('[class="hfpxzc"]');
 const links = await page.$$eval('[class="hfpxzc"] ', el => el.map(link => link.href));
 
-console.log(links);
+//console.log(links);
 
 for (const link of links) {
 
@@ -59,10 +59,13 @@ for (const link of links) {
 
     await page.goto(link);
     
-    // const title = await page.$eval('.ui-pdp-title', element => element.innerText);
-    // const price = await page.$eval('.andes-money-amount__fraction', element => element.innerText);
+    const Nome = await page.$eval('.DUwDvf', element => element.innerText);
+    const End = await page.$eval('.rogA2c', element => element.innerText);
+    
+    
+    const obj = {Nome,End}
 
-    // const obj = {title,price}
+    console.log(obj);
 
    c++
 }

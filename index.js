@@ -1,35 +1,72 @@
-const puppeteer = require('puppeteer');
+const pup = require("puppeteer");
 
-const CampoGrande = "Campo+Grande";
-const Escolas = "escolas+particulares";
-const Mapa = "https://www.google.com.br/maps/search/Escolas/@-22.9042277,-43.5996659,13z/data=!4m7!2m6!3m5!2sCampoGrande,+Rio+de+Janeiro+-+RJ!3s0x9be17999363715:0x46c3f27867ad9332!4m2!1d-43.5659121!2d-22.9076515?hl=pt-BR&authuser=0";
+const url = ("https://www.google.com.br/maps");
 
+const searchfor = "Freguesia rj";
+
+const searchBusiness = "Bares";
+
+let c = 1;
 
 (async () => {
+const browser = await pup.launch({headless: false});
+
+const page = await browser.newPage();
+console.log("Iniciei!");
+
+await page.goto(url);
+console.log("Fui para a url!");
+
+await page.waitForSelector("#searchboxinput");
+
+await page.type("#searchboxinput",searchfor);
+
+await page.click('#searchbox-searchbutton');
+
+await page.waitForNavigation(".g88MCb S9kvJb");
+
+await page.click('[data-value="Próximo"]');
+
+await page.type("#searchboxinput",searchBusiness);
+
+await page.waitForNavigation(".mL3xi");
+
+await page.click(".mL3xi");
+
+await page.setViewport({
+    width:1920,
+    height: 1300
+ });
+
+
+// await Promise.all([
+
+//     page.waitForNavigation(),
+//     page.click('.g88MCb S9kvJb')
+
+//  ]);
+
+await page.waitForSelector('[class="hfpxzc"]');
+const links = await page.$$eval('[class="hfpxzc"] ', el => el.map(link => link.href));
+
+//console.log(links);
+
+for (const link of links) {
+
+    console.log('Página',c);
+
+    //await page.waitForSelector('.ui-pdp-title');
+
+    await page.goto(link);
     
-  const browser = await puppeteer.launch({
-    executablePath: '/usr/bin/chromium-browser',
-    headless: false
-  });
-    const page = await browser.newPage();
-  
-    await page.goto(Mapa);
-  
-      const leads = await page.evaluate (()=>{
+    // const title = await page.$eval('.ui-pdp-title', element => element.innerText);
+    // const price = await page.$eval('.andes-money-amount__fraction', element => element.innerText);
 
-              const NodeList = document.querySelectorAll('[class="Lui3Od T7Wufd"]');
+    // const obj = {title,price}
 
-              const ListArray = [...NodeList];
+   c++
+}
 
-              const list = ListArray.map( ({}) => {
-                src
-              });
 
-            console.log(list);
-             
-      });
 
-    
-    //await browser.close();
-  })();
-
+})();
