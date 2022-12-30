@@ -2,9 +2,9 @@ const pup = require("puppeteer");
 
 const url = ("https://www.google.com.br/maps");
 
-const searchfor = "Freguesia rj";
+const searchfor = "Tanque rj";
 
-const searchBusiness = "Bares";
+const searchBusiness = "Escolas";
 
 let c = 1;
 
@@ -25,6 +25,8 @@ await page.click('#searchbox-searchbutton');
 
 await page.waitForNavigation(".g88MCb S9kvJb");
 
+await page.waitForSelector('[data-value="Próximo"]');
+
 await page.click('[data-value="Próximo"]');
 
 await page.type("#searchboxinput",searchBusiness);
@@ -38,13 +40,6 @@ await page.setViewport({
     height: 1300
  });
 
-
-// await Promise.all([
-
-//     page.waitForNavigation(),
-//     page.click('.g88MCb S9kvJb')
-
-//  ]);
 
 await page.waitForSelector('[class="hfpxzc"]');
 const links = await page.$$eval('[class="hfpxzc"] ', el => el.map(link => link.href));
