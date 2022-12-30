@@ -1,35 +1,45 @@
 const puppeteer = require('puppeteer');
 
-const CampoGrande = "Campo+Grande";
-const Escolas = "escolas+particulares";
-const Mapa = "https://www.google.com.br/maps/search/Escolas/@-22.9042277,-43.5996659,13z/data=!4m7!2m6!3m5!2sCampoGrande,+Rio+de+Janeiro+-+RJ!3s0x9be17999363715:0x46c3f27867ad9332!4m2!1d-43.5659121!2d-22.9076515?hl=pt-BR&authuser=0";
-
-
 (async () => {
-    
-  const browser = await puppeteer.launch({
-    executablePath: '/usr/bin/chromium-browser',
-    headless: false
-  });
+    const browser = await puppeteer.launch({
+        headless: false
+    });
     const page = await browser.newPage();
-  
-    await page.goto(Mapa);
-  
-      const leads = await page.evaluate (()=>{
+    await page.goto('https://www.google.com.br/maps/search/restaurantes/@-22.8603167,-43.5191969,14z/data=!3m1!4b1?hl=pt-BR&authuser=0');
+    await page.setViewport({
+        width: 1200,
+        height: 800
+    });
 
-              const NodeList = document.querySelectorAll('[class="Lui3Od T7Wufd"]');
+    await autoScroll(page);
 
-              const ListArray = [...NodeList];
+    await page.screenshot({
+        path: 'yoursite.png',
+        fullPage: true
+    });
 
-              const list = ListArray.map( ({}) => {
-                src
-              });
+    await browser.close();
+})();
 
-            console.log(list);
-             
-      });
+async function autoScroll(page){
+    await page.evaluate(async () => {
 
-    
-    //await browser.close();
-  })();
+        await new Promise((resolve) => {
 
+          
+            var totalHeight = 0;
+            var distance = 300;
+            var timer = setInterval(() => {
+              const element = document.querySelectorAll('[class="m6QErb DxyBCb kA9KIf dS8AEf ecceSd QjC7t"]');
+                var scrollHeight = document.body.scrollHeight;
+                window.scrollBy(0, distance);
+                totalHeight += distance;
+
+                if(totalHeight >= scrollHeight - window.innerHeight){
+                    clearInterval(timer);
+                    resolve();
+                }
+            }, 100);
+        });
+    });
+}

@@ -6,10 +6,12 @@ const searchfor = "Tanque rj";
 
 const searchBusiness = "Escolas";
 
+const time = new Date();
+
 let c = 1;
 
 (async () => {
-const browser = await pup.launch({headless: true});
+const browser = await pup.launch({headless: false});
 
 const page = await browser.newPage();
 console.log("Iniciei!");
@@ -53,12 +55,14 @@ for (const link of links) {
     //await page.waitForSelector('.ui-pdp-title');
 
     await page.goto(link);
+
+    
     
     const Nome = await page.$eval('.DUwDvf', element => element.innerText);
     const End = await page.$eval('.rogA2c', element => element.innerText);
     
     
-    const obj = {Nome,End}
+    const obj = {Nome,End,time}
 
     console.log(obj);
 
@@ -66,5 +70,5 @@ for (const link of links) {
 }
 
 
-
 })();
+
