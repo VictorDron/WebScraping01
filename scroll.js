@@ -12,12 +12,13 @@ async function autoScroll(page){
      await new Promise((resolve,reject)=>{
         
       var totalHeight = 0;
-      var distance = 300;
+      var distance = 100;
       var timer = setInterval(()=>{
-           const element = document.querySelectorAll('[class="e07Vkf kA9KIf"]');
+           const element = document.querySelectorAll('.vRIAEd::-webkit-scrollbar-track, .kA9KIf::-webkit-scrollbar-track');
            var scrollHeight = element.scrollHeight;
            element.scrollBy(0,distance);
            totalHeight += distance;
+           
            if(totalHeight >= scrollHeight){
                clearInterval(timer);
                resolve();
@@ -54,7 +55,7 @@ async function parsePlaces (page) {
   const browser = await puppeteer.launch({ headless: false});
   const page = await browser.newPage();
   await page.goto(Mapa);
-
+  await autoScroll(page);
   const places = await parsePlaces(page);
 
   await autoScroll(page);

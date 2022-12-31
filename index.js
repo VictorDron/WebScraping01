@@ -31,8 +31,10 @@ await page.type("#searchboxinput",searchBusiness);
 
 await page.waitForNavigation(".mL3xi");
 
-//await page.click(".mL3xi");
+await page.click(".mL3xi");
+
 await autoScroll(page);
+
 await page.setViewport({
     width:1920,
     height: 1300
