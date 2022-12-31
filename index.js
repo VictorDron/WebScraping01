@@ -31,20 +31,12 @@ await page.type("#searchboxinput",searchBusiness);
 
 await page.waitForNavigation(".mL3xi");
 
-await page.click(".mL3xi");
-
+//await page.click(".mL3xi");
+await autoScroll(page);
 await page.setViewport({
     width:1920,
     height: 1300
  });
-
-
-// await Promise.all([
-
-//     page.waitForNavigation(),
-//     page.click('.g88MCb S9kvJb')
-
-//  ]);
 
 await page.waitForSelector('[class="hfpxzc"]');
 const links = await page.$$eval('[class="hfpxzc"] ', el => el.map(link => link.href));
@@ -67,6 +59,29 @@ for (const link of links) {
    c++
 }
 
+async function autoScroll(page){
+    
+    while (true) {
 
+        await page.evaluate(async () => {
+            await new Promise((resolve, reject) => {
+                var totalHeight = 0;
+                var distance = 100;
+                var timer = setInterval(() => {
+                    var scrollHeight = document.body.scrollHeight;
+                    window.scrollBy(0, distance);
+                    totalHeight += distance;
+
+                    if(totalHeight >= scrollHeight){
+                        clearInterval(timer);
+                        resolve();
+                    }
+                }, 100);
+            });
+        });
+
+    }
+        
+}
 
 })();

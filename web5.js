@@ -5,9 +5,9 @@ const puppeteer = require('puppeteer');
         headless: false
     });
     const page = await browser.newPage();
-    await page.goto('https://www.google.com.br/maps/search/restaurantes/@-22.8603167,-43.5191969,14z/data=!3m1!4b1?hl=pt-BR&authuser=0');
+    await page.goto('https://www.google.com.br/maps/search/Escolas/@-22.9042277,-43.5996659,13z/data=!4m7!2m6!3m5!2sCampoGrande,+Rio+de+Janeiro+-+RJ!3s0x9be17999363715:0x46c3f27867ad9332!4m2!1d-43.5659121!2d-22.9076515?hl=pt-BR&authuser=0');
     await page.setViewport({
-        width: 1200,
+        width: 1300,
         height: 800
     });
 
@@ -18,28 +18,30 @@ const puppeteer = require('puppeteer');
         fullPage: true
     });
 
-    await browser.close();
+    //await browser.close();
 })();
 
 async function autoScroll(page){
-    await page.evaluate(async () => {
+    
+    while (true) {
 
-        await new Promise((resolve) => {
+        await page.evaluate(async () => {
+            await new Promise((resolve, reject) => {
+                var totalHeight = 0;
+                var distance = 100;
+                var timer = setInterval(() => {
+                    var scrollHeight = document.body.scrollHeight;
+                    window.scrollBy(0, distance);
+                    totalHeight += distance;
 
-          
-            var totalHeight = 0;
-            var distance = 300;
-            var timer = setInterval(() => {
-              const element = document.querySelectorAll('[class="m6QErb DxyBCb kA9KIf dS8AEf ecceSd QjC7t"]');
-                var scrollHeight = document.body.scrollHeight;
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-
-                if(totalHeight >= scrollHeight - window.innerHeight){
-                    clearInterval(timer);
-                    resolve();
-                }
-            }, 100);
+                    if(totalHeight >= scrollHeight){
+                        clearInterval(timer);
+                        resolve();
+                    }
+                }, 100);
+            });
         });
-    });
+
+    }
+        
 }
