@@ -2,34 +2,35 @@ const puppeteer = require('puppeteer');
 
 const CampoGrande = "Campo+Grande";
 const Escolas = "escolas+particulares";
-const Mapa = "https://www.google.com.br/maps/search/Escolas/@-22.9042277,-43.5996659,13z/data=!4m7!2m6!3m5!2sCampoGrande,+Rio+de+Janeiro+-+RJ!3s0x9be17999363715:0x46c3f27867ad9332!4m2!1d-43.5659121!2d-22.9076515?hl=pt-BR&authuser=0";
+const Mapa = "https://www.youtube.com/";
 
 
 async function autoScroll(page){
 
-  await page.evaluate(async ()=>{
+  while(true){
 
-     await new Promise((resolve,reject)=>{
-        
-      var totalHeight = 0;
-      var distance = 100;
-      var timer = setInterval(()=>{
-           const element = document.querySelectorAll('.vRIAEd::-webkit-scrollbar-track, .kA9KIf::-webkit-scrollbar-track');
-           var scrollHeight = element.scrollHeight;
-           element.scrollBy(0,distance);
-           totalHeight += distance;
-           
-           if(totalHeight >= scrollHeight){
-               clearInterval(timer);
-               resolve();
-           }
-           
-      },100);
+  
+      await page.evaluate(async ()=>{
+        await new Promise((resolve,reject)=>{
+          var totalHeight = 0;
+          var distance = 100;
+          var timer = setInterval(()=>{
+              const element = document.querySelector('.m6QErb DxyBCb kA9KIf dS8AEf ecceSd');
+              var scrollHeight = document.body.scrollHeight;
+              element.scrollBy(0,distance);
+              totalHeight += distance;
+              
+              if(totalHeight >= scrollHeight){
+                  clearInterval(timer);
+                  resolve();
+              }
+              
+          },100);
 
-     });
-  });
+        });
+      });
+  }
 }
-
 async function parsePlaces (page) {
 
   let places = [];
