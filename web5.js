@@ -6,6 +6,9 @@ const puppeteer = require('puppeteer');
     });
     const page = await browser.newPage();
     await page.goto('https://www.youtube.com/');
+
+    await page.focus('.style-scope yt-img-shadow');
+
     await page.setViewport({
         width: 1900,
         height: 1300
@@ -30,6 +33,8 @@ async function autoScroll(page){
                 var totalHeight = 0;
                 var distance = 100;
                 var timer = setInterval(() => {
+                    const container = document.querySelector('.style-scope ytd-app');
+                    page.focus('.style-scope ytd-app');
                     var scrollHeight = document.body.scrollHeight;
                     window.scrollBy(0, distance);
                     totalHeight += distance;
