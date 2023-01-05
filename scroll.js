@@ -9,7 +9,6 @@ async function autoScroll(page){
 
   while(true){
 
-  
       await page.evaluate(async ()=>{
         await new Promise((resolve,reject)=>{
           var totalHeight = 0;
