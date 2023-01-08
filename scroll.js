@@ -62,9 +62,9 @@ async function parsePlaces (page) {
 
   console.log(places);
 
-  await page.setViewport({
-     width:1300,
-     height: 900
-  });
+  await page.setViewport({width:1300, height: 900});
+     
+    
+  
   
 })();
